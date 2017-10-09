@@ -38,6 +38,8 @@ fl_cube_bottom = 0; //bottom of the fluorescence filter cube
 fl_cube_w = 16; //width of the fluorescence filter cube
 fl_cube_top = fl_cube_bottom + fl_cube_w + 2.7; //top of fluorescence cube
 fl_cube_top_w = fl_cube_w - 2.7;
+//    objective_clip_y = 15; //bodge for the 25mm lens
+
 d = 0.05;
 $fn=24;
 
@@ -469,6 +471,13 @@ difference(){
     optics_module_trylinder(
         lens_r = 3, 
         parfocal_distance = 6,
+        lens_h = 2.5
+    );//*/
+    /*/simple bodge for a 25mm lens "macroscope"
+    //NB this requires objective_clip_y>=14mm
+    optics_module_trylinder(
+        lens_r = 25/2+0.2, 
+        parfocal_distance = 36, //40mm fl, sample at 65mm, camera at -2.5
         lens_h = 2.5
     );//*/
     /*/ Optics module for logitech C270 lens
