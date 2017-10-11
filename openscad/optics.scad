@@ -303,6 +303,26 @@ module camera_mount_body(
     }
 }
 
+module z_platform(
+        dt_top //height of the dovetail
+    ){
+    // Make a camera mount, with a cylindrical body and a dovetail.
+    // Just add a lens mount on top for a complete optics module!
+    dt_h = dt_top;
+    cy = objective_clip_y;
+    cw = objective_clip_w;
+    union(){
+        hull(){
+            translate([-cy,-cy,0]) cube([cy*2,cy*2-1,1]);
+            translate([-cw/2, cy-1, 0]) cube([cw, d, 12]);
+        }
+        // add the dovetail
+        translate([0,objective_clip_y,0]){
+            dovetail_m([objective_clip_w+4,3,dt_h],waist=0);
+        }
+    }
+}
+
 module rms_mount_and_tube_lens_gripper(){
     // This assembly holds an RMS objective and a correcting
     // "tube" lens.  I dont think this is used any more...
@@ -486,7 +506,7 @@ difference(){
         parfocal_distance = 6, //NB with 6 here the PCB is a bit low
         lens_h = 2
     );//*/
-    // Optics module for RMS objective, using Comar 40mm singlet tube lens
+    /*/ Optics module for RMS objective, using Comar 40mm singlet tube lens
     optics_module_rms(
         tube_lens_ffd=38, 
         tube_lens_f=40, 
@@ -502,6 +522,9 @@ difference(){
         parfocal_distance = 21, //22 for high-res lens
         lens_h = 5.5
     );//*/
+    // Flat platform for macroscope type optics
+    z_platform(25);
+    //*/
     //
     //picam_cover();
     //rotate([90,0,0]) cylinder(r=999,h=999,$fn=8);
