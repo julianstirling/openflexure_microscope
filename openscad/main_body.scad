@@ -269,7 +269,7 @@ module place_on_wall(){
 union(){
 
 	//legs (incl. actuators)
-	reflect([1,0,0]) leg_frame(135) leg();
+	reflect([1,0,0]) leg_frame(135) leg(20);
 	each_actuator(){
         actuator();
 		translate([0,actuating_nut_r,0]) actuator_column(h=actuator_h);
